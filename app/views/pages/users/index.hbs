@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-12 mb-3">
+  <form action="/api/users" method="POST" class="card mx-auto shadow-sm" id="form_user_add">
+    <div class="card-header form-row">
+      <div class="col">
+        <legend>add user</legend>
+      </div>
+      <div class="col text-right">
+        <button type="submit" class="btn btn-primary">add <i class="fal fa-user-plus"></i></button> 
+      </div>      
+    </div>
+    <div class="card-body form-row">
+      {{#if errors}}
+      <div class="alert alert-danger">
+        <ul>
+        {{#each errors}}
+          <li>{{this}}</li>
+        {{/each}}
+        </ul>
+      </div>
+
+      {{/if}}
+      <div class="form-group col">
+        <label for="name">Name:</label>
+        <input 
+          type="name" 
+          name="name" 
+          class="form-control"
+          autocomplete="off"
+          required
+        >      
+        <div class="invalid-feedback">Add valid name.</div>
+      </div>      
+      <div class="form-group col">
+        <label for="email">Email address:</label>
+        <input 
+          type="email" 
+          name="email" 
+          class="form-control"
+          autocomplete="off"
+          required
+        >        
+        <div class="invalid-feedback">Add valid email.</div>        
+      </div>
+      <div class="form-group col">
+        <label for="password">Password:</label>
+        <input 
+          type="password" 
+          name="password" 
+          class="form-control"
+          autocomplete="off"
+          required
+        >
+        <div class="invalid-feedback">Add valid password.</div>        
+      </div>
+      <div class="form-group col">
+        <label for="confirm_password">Confirm Password:</label>
+        <input 
+          type="password" 
+          name="confirm_password" 
+          class="form-control"
+          autocomplete="off"   
+          required
+        >       
+        <div class="invalid-feedback">Does not match password.</div>        
+      </div>      
+    </div>
+    <div class="card-footer">
+           
+    </div> 
+  </form>
+  </div>  
+  <div class="col-12">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th width="40%">Name</th>
+        <th width="40%">Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.email}}</td>
+        <td class="text-right">
+          <a class="btn btn-link" href="/users/{{this._id}}" title="see details for {{this.name}}">
+            <i class="fas fa-user-edit fa-lg"></i>
+          </a>
+          <button 
+            type="button" 
+            class="btn btn-link" 
+            data-toggle="modal" 
+            data-target="#deleteUserModal" 
+            data-user="{{this.name}}"
+            data-action="/api/users/{{this._id}}?_method=DELETE"
+            title="delete {{this.name}}"
+          >
+            <i class="fas fa-user-times fa-lg"></i>
+          </button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>    
+   
+  </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteUserModalLabel">Delete user</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">no, cancel</button>
+        <form method="POST">          
+          <input type="submit" class="btn btn-primary" value="yes, delete">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$('#deleteUserModal').on('show.bs.modal', function (e) {
+  const trigger = e.relatedTarget;
+  const action = trigger.getAttribute('data-action');
+  const user = trigger.getAttribute('data-user');
+  $('#deleteUserModal form').attr('action', action)
+  $('#deleteUserModal p').text(`Do you want to delete ${user}?`);
+})
+</script>

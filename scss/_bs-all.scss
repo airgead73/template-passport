@@ -1,0 +1,28 @@
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+@mixin media($queryString){
+  @media #{$queryString} {
+    @content;
+  }
+}
+
+#form_user_signin,
+#user_update {
+  margin-top: 30%;
+  width: 280px;
+  @include media("(min-width: 567px)") {
+    margin-top: 15%;
+    width: 350px;
+  }
+}
+
+.navbar-text {
+  visibility: hidden;
+  @include media("(min-width: 567px)") {
+    visibility: visible;
+  }
+}
+
+main {
+  padding-top: 2%;
+}

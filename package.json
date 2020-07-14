@@ -1,0 +1,62 @@
+{
+  "name": "template-api",
+  "version": "1.0.0",
+  "description": "Template for api projects.",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development nodemon -r dotenv/config server.js",
+    "css:dev": "node-sass scss/styles.scss app/public/css/styles.css",
+    "css:watch": "node-sass scss/styles.scss app/public/css/styles.css --watch",
+    "css:compile": "node-sass scss/styles.scss scss/raw.css",
+    "css:prefix": "postcss --use autoprefixer -b 'last 5 versions' scss/raw.css -o scss/prefix.css",
+    "css:compress": "node-sass scss/prefix.css app/public/css/styles.css --output-style compressed",
+    "css:build": "npm-run-all css:compile css:prefix css:compress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airgead73/template-api.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "api"
+  ],
+  "author": "dan moneypenny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/airgead73/template-api/issues"
+  },
+  "homepage": "https://github.com/airgead73/template-api#readme",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.6",
+    "express-mongo-sanitize": "^2.0.0",
+    "express-rate-limit": "^5.1.3",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.0",
+    "handlebars": "^4.7.6",
+    "helmet": "^3.23.3",
+    "hpp": "^0.2.3",
+    "http-errors": "^1.8.0",
+    "memorystore": "^1.6.2",
+    "method-override": "^3.0.0",
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.21",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.4",
+    "bootstrap": "^4.5.0",
+    "dotenv": "^8.2.0",
+    "morgan": "^1.10.0",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.1"
+  }
+}
