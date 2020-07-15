@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken');
 const asyncHandler = require('./handleAsync');
-const User = require('../models/User');
-const { ISDEV, JWT_SECRET } = require('../config/config');
+const { ISDEV } = require('../config/config');
 
 const checkAuth = asyncHandler(async (req, res, next) => {
 
@@ -10,6 +8,13 @@ const checkAuth = asyncHandler(async (req, res, next) => {
     console.log('Auth checked.');
     console.log('*****************\n');
   }
+
+  if(req.isAuthenticated()) {
+    return next();
+  }
+
+  req.flash('error_msg', 'Access not authorized. Please, sign in.');
+  res.redirect('/signin');
 
 });
 
