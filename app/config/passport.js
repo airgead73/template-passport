@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 
 // Load user model
 const User = mongoose.model('User');
+//const User = require('../models/User');
 
 module.exports = function (passport) {
   passport.use(
@@ -17,6 +18,8 @@ module.exports = function (passport) {
           return done(null, false, { message: 'No User Found' });
         }
 
+        console.log(user);
+
         // Match password
         bcrypt.compare(password, user.password, (err, isMatch) => {
           //if (err) throw err;
@@ -27,6 +30,17 @@ module.exports = function (passport) {
             return done(null, false, { message: 'Password Incorrect' });
           }
         });
+
+        // const isMatch = await user.matchPassword(password);
+
+        // if(isMatch) {
+        //   return done(null, user);
+        // } else {
+        //   console.log('incorrect password');
+        //   return done(null, false, { message: 'Password incorrect.'});
+        // }
+
+
       });
     })
   );

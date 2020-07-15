@@ -24,8 +24,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Provide a password.'],
     trim: true,
     minlength: [5, 'Password should be between 5 and 15 characters'],
-    maxlength: [100, 'Password should be between 5 and 15 characters'],
-    select: false
+    maxlength: [100, 'Password should be between 5 and 15 characters']
   },
   slug: {
     type: String

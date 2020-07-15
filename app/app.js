@@ -27,6 +27,7 @@ const xss = require('xss-clean');
 
 const app = express();
 connectDB();
+require('./models/User');
 
 /** 
  * @desc  SECURITY

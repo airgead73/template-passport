@@ -2,8 +2,10 @@
 <html lang="en">
 {{> _head}}
 
-<body>  
-  {{> _header}}  
+<body> 
+  {{#if user}}
+    {{> _header}}
+  {{/if}}     
   <main class="container">
   {{{body}}}
   </main>  
