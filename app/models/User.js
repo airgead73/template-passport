@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const { JWT_SECRET, JWT_EXP, SALT_ROUNDS} = require('../config/config');
-const jwt = require('jsonwebtoken');
+const { SALT_ROUNDS} = require('../config/config');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -42,13 +41,6 @@ UserSchema.pre('save', async function(next) {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   this.password = await bcrypt.hash(this.password, salt);
 });
-
-// Sign JWT and return
-UserSchema.methods.getSignedJwtToken = function() {
-  return jwt.sign({ id: this.id }, JWT_SECRET, {
-    expiresIn: JWT_EXP
-  });
-}
 
 // Match user-entered password with db value
 UserSchema.methods.matchPassword = async function(enteredPassword) {

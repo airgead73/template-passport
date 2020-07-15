@@ -12,6 +12,7 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 const hpp = require('hpp');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
+const passport = require('passport');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const { RATE_LIMIT } = require('./config/config');
@@ -81,6 +82,9 @@ app.engine('hbs', exphbs({
     checkPeriod: SESSION_EXP
   })
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
 /** 
  * @desc GLOBAL VARIABLES

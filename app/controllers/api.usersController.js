@@ -17,9 +17,6 @@ exports.create = asyncHandler(async function(req, res, next) {
 
   await user.save();
 
-  // Create token
-  const token = user.getSignedJwtToken();
-
   if(res.locals.res_html) {
     return res
       .status(200)
@@ -33,8 +30,7 @@ exports.create = asyncHandler(async function(req, res, next) {
       user: {
         name: user.name,
         email: user.email
-      },
-      token
+      }
     });
 
 });
