@@ -10,7 +10,6 @@ const checkAuth = asyncHandler(async (req, res, next) => {
   }
 
   if(req.isAuthenticated()) {
-    console.log('user: ', req.user);
     res.locals.username = (req.user).name;
     return next();
   }
